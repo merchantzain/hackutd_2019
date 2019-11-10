@@ -2,6 +2,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import amadeus_api
 from forms import RegistrationForm
+import sqlite3
+from db_funcs import *
 
 # create flask web application object (instantiated by your WSGI)
 app = Flask(__name__)
@@ -16,7 +18,6 @@ def index():
 
     # validate the form inputs and redirect to homepage (index) on success
     if form.validate_on_submit():
-        print(form.weekend.data)
         return redirect(url_for("success"))
 
     return render_template("index.html", form=form)
@@ -24,6 +25,26 @@ def index():
 @app.route("/success")
 def success():
     return render_template("success.html")
+
+@app.route("/alexa/<name>/<email>/<phone>/<budget>/<weekend>")
+def alexa(name, email, phone, budget, weekend):
+    print(name + " " + email + " " + phone + " " + budget + " " + weekend)
+    # confirm formats for inputs
+    
+    # check if table exists, create otherwise
+    create_table()
+
+    # add data to table
+    insert_traveler(name, email, phone, budget, weekend)
+
+    # get a group of travelers with similar dates then interests
+
+    # twillio to group of travellers
+
+    # delete travellers in group
+
+    # trigger check group
+    return "done", 200
 
 # call upon program startup
 if __name__ == '__main__':
