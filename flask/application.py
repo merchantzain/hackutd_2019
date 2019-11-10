@@ -44,6 +44,18 @@ def alexa(name, email, phone, budget, weekend):
     post_received(name, email, phone, budget, weekend, interests, university)
     return "done", 200
 
+@app.route("/droptable")
+def drop():
+    try:
+        drop_table()
+    except:
+        return "drop failed, no table", 200
+    return "table dropped", 200
+
+@app.route("/table_status")
+def status():
+    return str(table_status()), 200
+
 def post_received(name, email, phone, budget, weekend, interests, university):
     current_traveller = [name, email, phone, budget, weekend, interests, university]
 

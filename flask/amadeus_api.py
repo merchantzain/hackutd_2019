@@ -77,11 +77,14 @@ def get_flight(budget=300, departure_date="2019-11-15", token=get_token()):
     return_date = return_date.strftime("%Y-%m-%d")
 
     # get IATA code of your closest airport's cities
-    city_codes = []
-    for airport in get_nearby_airports(token=token):
-        city = airport["airport_citycode"]
-        if city not in city_codes:
-            city_codes.append(city)
+    try:
+        city_codes = []
+        for airport in get_nearby_airports(token=token):
+            city = airport["airport_citycode"]
+            if city not in city_codes:
+                city_codes.append(city)
+    except:
+        return None
 
     # loop over closest city's airport's and get a random destination within budget
     random_trip = []

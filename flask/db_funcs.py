@@ -66,6 +66,32 @@ def get_similar_travellers(current_traveller):
     # return both
     return True, buddies, common_interests, smallest_budget
 
+# drop the table like the mic
+def drop_table():
+    # create database and connection if it doesnt exist
+    conn = sqlite3.connect("data.db")
+
+    # create table
+    sql_query = "DROP TABLE travelers;"
+    cursorObj = conn.cursor()
+    cursorObj.execute(sql_query)
+    conn.commit()
+    conn.close()
+
+# get number of rows in table
+def table_status():
+    # get all travellers in db with same date as current traveller
+    sql_query = f'SELECT * FROM travelers;'
+    conn = sqlite3.connect("data.db")
+    cursorObj = conn.cursor()
+    cursorObj.execute(sql_query)
+    conn.commit()
+    values = cursorObj.fetchall()
+    conn.close()
+
+    num_rows = len(values)
+    return num_rows
+
 # given a traveller id, delete the traveller from the table
 def delete_travellers(traveller_id):
     # create database and connection if it doesnt exist
