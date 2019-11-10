@@ -52,16 +52,25 @@ def post_received(name, email, phone, budget, weekend, interests, university):
     # add data to table
     insert_traveler(name, email, phone, university, budget, weekend, interests)
 
-    # get a group of travelers with similar dates, if group < 4 return done
+    # get a group of travelers with similar dates, if possible
+    group_made, travel_group, common_interests, budget = get_similar_travellers(current_traveller)
+    if not group_made:
+        return
+        
+    # book trip
+    itinerary = amadeus_api.get_flight(budget=budget, departure_date=travel_group[0][-2])
+    if itinerary is None:
+        print("No itinerary")
+        return
 
-    # else
-        # use group member with the smallest budget's budget
-        # book trip
-        # itinerary_info = get_flight(budget=[lowest from group], departure_date=weekend)
-        # twillio to group of travellers
-        # delete travellers in group
-        # return
-    pass
+    # twillio to group of followers
+
+    # delete travellers from table
+    for person in travel_group:
+        delete_travellers(person[0])
+    print("people deleted")
+
+    return
 
 def closest_friday(day):
     # get closest friday to date

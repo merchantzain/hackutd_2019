@@ -112,55 +112,62 @@ def get_flight(budget=300, departure_date="2019-11-15", token=get_token()):
         except:
             pass
 
-    # get flight itinerary for trip
-    url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
-    querystring = {
-                "originLocationCode":random_trip[0][0],
-                "destinationLocationCode":random_trip[0][1],
-                "departureDate":departure_date,
-                "returnDate":return_date,
-                "adults":"1",
-                "nonStop":"false",
-                "currencyCode":"USD",
-                "max":"1"}
-    headers = {
-                'Authorization': f"Bearer {token}",
-                'Accept': "*/*",
-                'Cache-Control': "no-cache",
-                'Host': "test.api.amadeus.com",
-                'Accept-Encoding': "gzip, deflate",
-                'Connection': "keep-alive",
-                'cache-control': "no-cache"
-            }
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    response = json.loads(response.text)
+    if len(random_trip) < 1:
+        return None
+    
+    try:
+        # get flight itinerary for trip
+        url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
+        querystring = {
+                    "originLocationCode":random_trip[0][0],
+                    "destinationLocationCode":random_trip[0][1],
+                    "departureDate":departure_date,
+                    "returnDate":return_date,
+                    "adults":"1",
+                    "nonStop":"false",
+                    "currencyCode":"USD",
+                    "max":"1"}
+        headers = {
+                    'Authorization': f"Bearer {token}",
+                    'Accept': "*/*",
+                    'Cache-Control': "no-cache",
+                    'Host': "test.api.amadeus.com",
+                    'Accept-Encoding': "gzip, deflate",
+                    'Connection': "keep-alive",
+                    'cache-control': "no-cache"
+                }
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        response = json.loads(response.text)
 
-    flight_itinerary = {
-        "outgoing":{
-            "origin":response["data"][0]["itineraries"][0]["segments"][0]["departure"]["iataCode"],
-            "origin_terminal":response["data"][0]["itineraries"][0]["segments"][0]["departure"]["terminal"],
-            "departure_datetime":response["data"][0]["itineraries"][0]["segments"][0]["departure"]["at"],
-            "destination":response["data"][0]["itineraries"][0]["segments"][0]["arrival"]["iataCode"],
-            "destination_datetime":response["data"][0]["itineraries"][0]["segments"][0]["arrival"]["at"],
-            "airline":response["data"][0]["itineraries"][0]["segments"][0]["carrierCode"],
-            "itinerary_code":response["data"][0]["itineraries"][0]["segments"][0]["duration"],
-            "flight_number":response["data"][0]["itineraries"][0]["segments"][0]["number"]
-        },
-        "arrival":{
-            "origin":response["data"][0]["itineraries"][1]["segments"][0]["departure"]["iataCode"],
-            "departure_datetime":response["data"][0]["itineraries"][1]["segments"][0]["departure"]["at"],
-            "destination":response["data"][0]["itineraries"][1]["segments"][0]["arrival"]["iataCode"],
-            "destination_terminal":response["data"][0]["itineraries"][1]["segments"][0]["arrival"]["terminal"],
-            "destination_datetime":response["data"][0]["itineraries"][1]["segments"][0]["arrival"]["at"],
-            "airline":response["data"][0]["itineraries"][1]["segments"][0]["carrierCode"],
-            "itinerary_code":response["data"][0]["itineraries"][1]["segments"][0]["duration"],
-            "flight_number":response["data"][0]["itineraries"][1]["segments"][0]["number"]
-        },
-        "cost":response["data"][0]["price"]["base"]
-    }
+        flight_itinerary = {
+            "outgoing":{
+                "origin":response["data"][0]["itineraries"][0]["segments"][0]["departure"]["iataCode"],
+                "origin_terminal":response["data"][0]["itineraries"][0]["segments"][0]["departure"]["terminal"],
+                "departure_datetime":response["data"][0]["itineraries"][0]["segments"][0]["departure"]["at"],
+                "destination":response["data"][0]["itineraries"][0]["segments"][0]["arrival"]["iataCode"],
+                "destination_datetime":response["data"][0]["itineraries"][0]["segments"][0]["arrival"]["at"],
+                "airline":response["data"][0]["itineraries"][0]["segments"][0]["carrierCode"],
+                "itinerary_code":response["data"][0]["itineraries"][0]["segments"][0]["duration"],
+                "flight_number":response["data"][0]["itineraries"][0]["segments"][0]["number"]
+            },
+            "arrival":{
+                "origin":response["data"][0]["itineraries"][1]["segments"][0]["departure"]["iataCode"],
+                "departure_datetime":response["data"][0]["itineraries"][1]["segments"][0]["departure"]["at"],
+                "destination":response["data"][0]["itineraries"][1]["segments"][0]["arrival"]["iataCode"],
+                "destination_terminal":response["data"][0]["itineraries"][1]["segments"][0]["arrival"]["terminal"],
+                "destination_datetime":response["data"][0]["itineraries"][1]["segments"][0]["arrival"]["at"],
+                "airline":response["data"][0]["itineraries"][1]["segments"][0]["carrierCode"],
+                "itinerary_code":response["data"][0]["itineraries"][1]["segments"][0]["duration"],
+                "flight_number":response["data"][0]["itineraries"][1]["segments"][0]["number"]
+            },
+            "cost":response["data"][0]["price"]["base"]
+        }
 
-    # return flight locations, flight numbers, costs, and dates
-    return flight_itinerary
+        # return flight locations, flight numbers, costs, and dates
+        return flight_itinerary
+    except:
+        print("Some fucking error")
+        return None
 
 # get cheap hotels for location
 # get attractions for location
