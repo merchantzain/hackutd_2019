@@ -13,7 +13,7 @@ def send_to_group(people, itin, interests):
     resp_string = "You are going on a trip with "
     for person in people:
         resp_string = resp_string + person[0] + "(" + person[1] + ") "
-    resp_string = resp_string + "on " + itin["outgoing"]["departure_datetime"] + ". Your flight number is " + itin["outgoing"]["airline"] + itin["outgoing"]["flight_number"]
+    resp_string = resp_string + "to " + itin["outgoing"]["destination"] + " on " + itin["outgoing"]["departure_datetime"] + ". Your flight number is " + itin["outgoing"]["airline"] + itin["outgoing"]["flight_number"]
     resp_string = resp_string + " from terminal " + itin["outgoing"]["origin_terminal"] + " in " + itin["outgoing"]["origin"]
     resp_string = resp_string + ". You will arive on " + itin["outgoing"]["destination_datetime"]
     resp_string = resp_string + ". Some common interests between y'all are "
