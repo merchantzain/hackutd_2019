@@ -16,10 +16,14 @@ def index():
 
     # validate the form inputs and redirect to homepage (index) on success
     if form.validate_on_submit():
-        flash(f"Submitted GTFO Request!", "success")
-        return redirect(url_for("index"))
+        print(form.weekend.data)
+        return redirect(url_for("success"))
 
     return render_template("index.html", form=form)
+
+@app.route("/success")
+def success():
+    return render_template("success.html")
 
 # call upon program startup
 if __name__ == '__main__':
