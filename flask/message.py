@@ -36,7 +36,7 @@ def send_msg(number,resp_string):
 
     print(message.sid)
 
-  
+"""
 if(__name__=="__main__"):
     people = [['bob',"8323448497"],['joe','8328753755']]
     flight_itinerary = {
@@ -61,3 +61,4 @@ if(__name__=="__main__"):
     }
     interests = ["gamer", "bars", "drink"]
     send_to_group(people, flight_itinerary, interests)
+"""

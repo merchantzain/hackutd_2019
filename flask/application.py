@@ -5,6 +5,7 @@ from forms import RegistrationForm
 import sqlite3
 from db_funcs import *
 from datetime import datetime, timedelta
+import message as msg
 
 # create flask web application object (instantiated by your WSGI)
 app = Flask(__name__)
@@ -64,6 +65,10 @@ def post_received(name, email, phone, budget, weekend, interests, university):
         return
 
     # twillio to group of followers
+    messaged_people = []
+    for person in travel_group:
+        messaged_people.append([person[1], person[3]])
+    msg.send_to_group(messaged_people, itinerary, common_interests)
 
     # delete travellers from table
     for person in travel_group:
