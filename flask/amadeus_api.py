@@ -162,9 +162,5 @@ def get_flight(budget=300, departure_date="2019-11-15", token=get_token()):
     # return flight locations, flight numbers, costs, and dates
     return flight_itinerary
 
-
-
-
 # get cheap hotels for location
 # get attractions for location
-# group all users in database by interests, budget, and deadline into groups of max 4

@@ -34,7 +34,13 @@ def insert_traveler(name, email, phone, university, budget, weekend, interests):
     conn.close()
 
 # return a nested list of similar travellers
-def get_similar_travellers():
+def get_similar_travellers(current_traveller):
+    # get all travellers in db with same date as current traveller
+
+    # get common interests between travellers
+
+    # return both
+
     pass
 
 # given a traveller id, delete the traveller from the table
