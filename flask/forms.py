@@ -44,10 +44,13 @@ class RegistrationForm(FlaskForm):
         validators=[DataRequired()
     ])
 
-    # if nothing selected, use upcoming weekend
     weekend = DateField("Weekend Available", format='%Y-%m-%d', validators=[
         DateRange(min=date.today(), max=date.today() + timedelta(30), message="Pick a day between today and 30 days from now."),
         DataRequired()])
+
+    interests = StringField("Interests (space seperated)", validators=[
+        Length(min=0, max=500, message="Length too long! Max is 500 characters."),
+    ])
 
     # submit field
     submit = SubmitField("Submit")

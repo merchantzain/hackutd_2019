@@ -16,6 +16,15 @@
     </head>
 
     <body>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="login-alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <h1>Get The Flights Outta (here)!</h1>
         <h3>description of application here.</h3>
         <div>
@@ -65,7 +74,13 @@
                             <span class="validation-error">{{ error }}</span>
                         {% endfor %}
                     </div>
-                    
+                    <div class="">
+                        {{ form.interests.label(class="") }}
+                        {{ form.interests(class="") }}
+                        {% for error in form.interests.errors %}
+                            <span class="validation-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
                 </fieldset>
 
                 <div class="">

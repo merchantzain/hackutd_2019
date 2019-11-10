@@ -1,5 +1,5 @@
 # import libraries
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import amadeus_api
 from forms import RegistrationForm
 
@@ -16,6 +16,7 @@ def index():
 
     # validate the form inputs and redirect to homepage (index) on success
     if form.validate_on_submit():
+        flash(f"Submitted GTFO Request!", "success")
         return redirect(url_for("index"))
 
     return render_template("index.html", form=form)
