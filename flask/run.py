@@ -4,10 +4,11 @@ from twilio.rest import Client
 
 # Your Account Sid and Auth Token from twilio.com/console
 # DANGER! This is insecure. See http://twil.io/secure
+# As said above, this is insecure. In a production environment, these variables would be hidden
 account_sid = 'ACb249d5d45a184e6275ddd67f2a81869a'
 auth_token = '8efcad633760dd3d35889829a83e7562'
 client = Client(account_sid, auth_token)
-
+#This function will construct the message sent to the people in a group, using their interests and itinerary
 def send_to_group(people, itin, interests):
     resp_string = "You are going on a trip with "
     for person in people.keys():
@@ -18,7 +19,8 @@ def send_to_group(people, itin, interests):
     resp_string = resp_string + ". You all like "
     for inter in interests:
         resp_string = resp_string + inter + ", "
-    resp_string = resp_string + "and maybe more! Have Fun!"
+    resp_string = resp_string + "and maybe more!"
+    resp_string = resp_string + " You'll be going home on " + itin["arrival"]["departure_datetime"] + " on flight " + itin["arrival"]["flight_number"] + " Have Fun!"
     for person in people.keys():
         send_msg(people[person]["phone"],resp_string)
     
