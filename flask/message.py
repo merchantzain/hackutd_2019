@@ -13,14 +13,14 @@ def send_to_group(people, itin, interests):
     resp_string = "You are going on a trip with "
     for person in people.keys():
         resp_string = resp_string + people[person]["name"] + "(" + people[person]["phone"] + ") "
-    resp_string = resp_string + "on " + itin["outgoing"]["departure_datetime"] + " on flight " + itin["outgoing"]["flight_number"]
-    resp_string = resp_string + " from " + itin["outgoing"]["origin_terminal"]
-    resp_string = resp_string + ". You will arive at " + itin["outgoing"]["destination_datetime"]
-    resp_string = resp_string + ". You all like "
+    resp_string = resp_string + "on " + itin["outgoing"]["departure_datetime"] + ". Your flight number is " + itin["outgoing"]["airline"] + itin["outgoing"]["flight_number"]
+    resp_string = resp_string + " from " + itin["outgoing"]["origin_terminal"] + " in " + itin["outgoing"]["origin"]
+    resp_string = resp_string + ". You will arive on " + itin["outgoing"]["destination_datetime"]
+    resp_string = resp_string + ". Some common interests between y'all are "
     for inter in interests:
         resp_string = resp_string + inter + ", "
     resp_string = resp_string + "and maybe more!"
-    resp_string = resp_string + " You'll be going home on " + itin["arrival"]["departure_datetime"] + " on flight " + itin["arrival"]["flight_number"] + " Have Fun!"
+    resp_string = resp_string + " You'll be going home on " + itin["arrival"]["departure_datetime"] + " on flight " + itin["arrival"]["airline"]+ itin["arrival"]["flight_number"] + " Have Fun!"
     for person in people.keys():
         send_msg(people[person]["phone"],resp_string)
     
@@ -40,7 +40,9 @@ if(__name__=="__main__"):
     people = {'bob':{"name": 'bob',"phone": '8323448497'},'joe':{"name": 'joe',"phone": '8328753755'}}
     flight_itinerary = {
         "outgoing":{
-            "origin_terminal":'DFW',
+            "origin":'DFW',
+            "airline":'AA',
+            "origin_terminal":'E',
             "departure_datetime":'12-01-19',
             "destination":'London',
             "destination_datetime":'12-02-19',
@@ -48,6 +50,7 @@ if(__name__=="__main__"):
         },
         "arrival":{
             "origin":'Heathrow',
+            "airline":'AA',
             "departure_datetime":'12-04-19',
             "destination":'Dallas',
             "destination_datetime":'12-05-19',
