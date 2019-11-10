@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}"/>
     </head>
 
-    <body>
+    <body class="crane">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -26,7 +26,8 @@
             {% endif %}
         {% endwith %}
         <img src="static/GTFO.png" alt="Get The Flights Outta Here!">
-        <h3>description of application here.</h3>
+        <h3>Do you have a free weekend? Do you have a budget? Do you need a break? Then it sounds like you need to Get The Flight Outta Here!
+		We'll find a flight and friends to get you to a fun weekend!</h3>
         <div>
             <form method="POST" action="">
                 {{ form.hidden_tag() }}
@@ -83,7 +84,7 @@
                     </div>
                 </fieldset>
 
-                <div class="">
+                <div class="center">
                     {{ form.submit(class="") }}
                 </div>
             </form>

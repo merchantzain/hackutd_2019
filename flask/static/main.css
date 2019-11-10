@@ -1,3 +1,25 @@
-.form{
+form{
     color: blue;
+	margin: auto;
+	width: 50%;
+	height: auto;
+	font-family: "Verdana";
+	background-color: white;
+}
+h3{
+	margin: auto;
+	width: 50%;
+	background-color:white;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+body{
+	background-image: url("Temoc.png");
+}
+.center{
+	text-align:center;
 }
