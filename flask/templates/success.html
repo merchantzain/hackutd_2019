@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- Title and Meta Information -->
+        <title>GTFO - Success</title>
+        <meta name="description" content="GTFO - Get The Flights Outta (here). A way for UT Dallas students to escape and make new friends.">
+        <meta name="author" content="Zain Merchant, Ryan Radloff, Ben Nguyen, and Frank Gao">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Reference Favicon, Stylesheets, and JavaScript -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon.ico')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='success.css')}}"/>
+    </head>
+
+    <body>
+        <a href="{{ url_for('index') }}">Request to GTFO Submitted Successfully!</a>
+    </body>
+</html>
