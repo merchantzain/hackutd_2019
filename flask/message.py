@@ -14,7 +14,7 @@ def send_to_group(people, itin, interests):
     for person in people.keys():
         resp_string = resp_string + people[person]["name"] + "(" + people[person]["phone"] + ") "
     resp_string = resp_string + "on " + itin["outgoing"]["departure_datetime"] + ". Your flight number is " + itin["outgoing"]["airline"] + itin["outgoing"]["flight_number"]
-    resp_string = resp_string + " from " + itin["outgoing"]["origin_terminal"] + " in " + itin["outgoing"]["origin"]
+    resp_string = resp_string + " from terminal " + itin["outgoing"]["origin_terminal"] + " in " + itin["outgoing"]["origin"]
     resp_string = resp_string + ". You will arive on " + itin["outgoing"]["destination_datetime"]
     resp_string = resp_string + ". Some common interests between y'all are "
     for inter in interests:
@@ -35,7 +35,8 @@ def send_msg(number,resp_string):
                     )
 
     print(message.sid)
-    
+
+"""  
 if(__name__=="__main__"):
     people = {'bob':{"name": 'bob',"phone": '8323448497'},'joe':{"name": 'joe',"phone": '8328753755'}}
     flight_itinerary = {
@@ -59,4 +60,4 @@ if(__name__=="__main__"):
         "cost":'$420'
     }
     interests = ["gamer", "bars", "drink"]
-    send_to_group(people, flight_itinerary, interests)
+    send_to_group(people, flight_itinerary, interests)"""
