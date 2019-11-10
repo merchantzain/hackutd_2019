@@ -1,47 +1,57 @@
-# /usr/bin/env python
-# Download the twilio-python library from twilio.com/docs/libraries/python
-from flask import Flask, request
-from twilio.twiml.messaging_response import MessagingResponse
+# Download the helper library from https://www.twilio.com/docs/python/install
+from twilio.rest import Client
 
 
+# Your Account Sid and Auth Token from twilio.com/console
+# DANGER! This is insecure. See http://twil.io/secure
+account_sid = 'ACb249d5d45a184e6275ddd67f2a81869a'
+auth_token = '8efcad633760dd3d35889829a83e7562'
+client = Client(account_sid, auth_token)
 
-app = Flask(__name__)
+def send_to_group(people, itin, interests):
+    resp_string = "You are going on a trip with "
+    for person in people.keys():
+        resp_string = resp_string + people[person]["name"] + "(" + people[person]["phone"] + ") "
+    resp_string = resp_string + "on " + itin["outgoing"]["departure_datetime"] + " on flight " + itin["outgoing"]["flight_number"]
+    resp_string = resp_string + " from " + itin["outgoing"]["origin_terminal"]
+    resp_string = resp_string + ". You will arive at " + itin["outgoing"]["destination_datetime"]
+    resp_string = resp_string + ". You all like "
+    for inter in interests:
+        resp_string = resp_string + inter + ", "
+    resp_string = resp_string + "and maybe more! Have Fun!"
+    for person in people.keys():
+        send_msg(people[person]["phone"],resp_string)
+    
 
-@app.route("/sms", methods=['GET', 'POST'])
-def sms_menu():
-    bob = ["bob","9182838282","London","Monday"]
-    joe = ["joe","1298713278","London","Monday"]
-    billy = ["billy","1238472018","London","Tuesday"]
-    people = [bob, joe, billy]
-    person = ["ben", "129381729382", "London", "12-08-2019", "$500", "DFW", "12-12-2019", "being a GAMER"]
-    #Get the message
-    body = request.values.get('Body', None)
+def send_msg(number,resp_string):
+    number = "+1" + number
+    message = client.messages \
+                    .create(
+                        body=resp_string,
+                        from_='+13176081989',
+                        to=number
+                    )
 
-    """Respond to incoming messages with a friendly SMS."""
-    # Start our response
-    resp = MessagingResponse()
-
-
-    # Add a message-
-    if body == 'Trip Details':
-        resp.message(trip_details(person,people))
-    else:
-        resp.message("Piss off! Thanks so much for your message.")
-
-    return str(resp)
-
-def trip_details(person, people):
-    response_string = "Howdy pardner! You are going to " + person[2] + " on " + person[3] + " with "
-    peoplecount = 0
-    for x in people:
-        if x[2] == person[2]:
-            if x[3] == person[3]:
-                response_string = response_string + x[0] + "(" + x[1] + ") "
-                peoplecount = peoplecount + 1
-    if peoplecount == 0:
-        response_string = response_string + "nobody"
-    response_string = response_string + " with a " + person[4] + " ticket from " + person[5] + " and coming back on " + person[6] + ". If you're wondering what to do, you all like " + person[7]
-    return response_string
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    print(message.sid)
+    
+if(__name__=="__main__"):
+    people = {'bob':{"name": 'bob',"phone": '8323448497'},'joe':{"name": 'joe',"phone": '8328753755'}}
+    flight_itinerary = {
+        "outgoing":{
+            "origin_terminal":'DFW',
+            "departure_datetime":'12-01-19',
+            "destination":'London',
+            "destination_datetime":'12-02-19',
+            "flight_number":'99'
+        },
+        "arrival":{
+            "origin":'Heathrow',
+            "departure_datetime":'12-04-19',
+            "destination":'Dallas',
+            "destination_datetime":'12-05-19',
+            "flight_number":'69'
+        },
+        "cost":'$420'
+    }
+    interests = ["gamer", "bars", "drink"]
+    send_to_group(people, flight_itinerary, interests)
