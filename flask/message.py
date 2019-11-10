@@ -11,8 +11,8 @@ client = Client(account_sid, auth_token)
 #This function will construct the message sent to the people in a group, using their interests and itinerary
 def send_to_group(people, itin, interests):
     resp_string = "You are going on a trip with "
-    for person in people.keys():
-        resp_string = resp_string + people[person]["name"] + "(" + people[person]["phone"] + ") "
+    for person in people:
+        resp_string = resp_string + person[0] + "(" + person[1] + ") "
     resp_string = resp_string + "on " + itin["outgoing"]["departure_datetime"] + ". Your flight number is " + itin["outgoing"]["airline"] + itin["outgoing"]["flight_number"]
     resp_string = resp_string + " from terminal " + itin["outgoing"]["origin_terminal"] + " in " + itin["outgoing"]["origin"]
     resp_string = resp_string + ". You will arive on " + itin["outgoing"]["destination_datetime"]
@@ -21,8 +21,8 @@ def send_to_group(people, itin, interests):
         resp_string = resp_string + inter + ", "
     resp_string = resp_string + "and maybe more!"
     resp_string = resp_string + " You'll be going home on " + itin["arrival"]["departure_datetime"] + " on flight " + itin["arrival"]["airline"]+ itin["arrival"]["flight_number"] + " Have Fun!"
-    for person in people.keys():
-        send_msg(people[person]["phone"],resp_string)
+    for person in people:
+        send_msg(person[1],resp_string)
     
 
 def send_msg(number,resp_string):
@@ -36,9 +36,9 @@ def send_msg(number,resp_string):
 
     print(message.sid)
 
-"""  
+  
 if(__name__=="__main__"):
-    people = {'bob':{"name": 'bob',"phone": '8323448497'},'joe':{"name": 'joe',"phone": '8328753755'}}
+    people = [['bob',"8323448497"],['joe','8328753755']]
     flight_itinerary = {
         "outgoing":{
             "origin":'DFW',
@@ -60,4 +60,4 @@ if(__name__=="__main__"):
         "cost":'$420'
     }
     interests = ["gamer", "bars", "drink"]
-    send_to_group(people, flight_itinerary, interests)"""
+    send_to_group(people, flight_itinerary, interests)
