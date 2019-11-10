@@ -14,9 +14,12 @@ itsdangerous==1.1.0
 Jinja2==2.10.3
 MarkupSafe==1.1.1
 pycparser==2.19
+PyJWT==1.7.1
 pyOpenSSL==19.0.0
+pytz==2019.3
 requests==2.22.0
 six==1.13.0
+twilio==6.33.0
 urllib3==1.25.6
 validators==0.14.0
 Werkzeug==0.16.0
