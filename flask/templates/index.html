@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- Title and Meta Information -->
+        <title>GTFO</title>
+        <meta name="description" content="GTFO - Get The Flights Outta (here). A way for UT Dallas students to escape and make new friends.">
+        <meta name="author" content="Zain Merchant, Ryan Radloff, Ben Nguyen, and Frank Gao">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Reference Favicon, Stylesheets, and JavaScript -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='media/favicon.ico')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css')}}"/>
+    </head>
+
+    <body>
+        <h1>Get The Flights Outta (here)!</h1>
+        <h3>description of application here.</h3>
+        <div>
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    <legend>Request a flight out (of here)!</legend>
+                    <div class="">
+                        {{ form.name.label(class="") }}
+                        {{ form.name(class="") }}
+                        {% for error in form.name.errors %}
+                            <span class="validation-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="">
+                        {{ form.email.label(class="") }}
+                        {{ form.email(class="") }}
+                        {% for error in form.email.errors %}
+                            <span class="validation-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="">
+                        {{ form.phone.label(class="") }}
+                        {{ form.phone(class="") }}
+                        {% for error in form.phone.errors %}
+                            <span class="validation-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="">
+                        {{ form.university.label(class="") }}
+                        {{ form.university(class="") }}
+                        {% for error in form.university.errors %}
+                            <span class="validation-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="">
+                        {{ form.budget.label(class="") }}
+                        {{ form.budget(class="") }}
+                        {% for error in form.budget.errors %}
+                            <span class="validation-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="">
+                        {{ form.weekend.label(class="") }}
+                        {{ form.weekend(class="") }}
+                        {% for error in form.weekend.errors %}
+                            <span class="validation-error">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                </fieldset>
+
+                <div class="">
+                    {{ form.submit(class="") }}
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
